@@ -1,0 +1,41 @@
+1. In you CreditScore application application.properties file define serverport 8899 to prevent any possible conflicts.
+
+2. You have to create Dockerfile in your project root directory:
+
+========== code begin ==========
+# Dockerfile
+
+FROM openjdk:11
+COPY target/credit-score-app.jar /usr/src/myapp/
+WORKDIR /usr/src/myapp
+RUN java -jar credit-score-app.jar
+========== code end  ==========
+
+
+3. Change the exact name of your application JAR file in the Dockerfile and the exact location from which it can be taken.
+4. Create  YML file:
+
+========== code begin ==========
+version: '3.7'
+
+services:
+
+    credit-score-app:
+        build:
+          context: ./../path/to/your/application/root/directory
+          dockerfile: Dockerfile
+        networks:
+          - genesis_net
+        ports:
+          - "8899:8899"
+        environment:
+          EXTERNAL_IP: std-master-app
+
+networks:
+    genesis_net:
+        external:
+            name: infra_genesis_net
+========== code end  ==========
+
+5. Now you can run:
+docker-compose -f [your_yml_file_here] -p 3rd-party %*
