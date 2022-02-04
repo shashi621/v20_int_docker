@@ -29,7 +29,7 @@ services:
         ports:
           - "8899:8899"
         environment:
-          EXTERNAL_IP: std-master-app
+          EXTERNAL_IP: credit-score-app
 
 networks:
     genesis_net:
