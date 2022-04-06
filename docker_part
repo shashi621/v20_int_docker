@@ -6,10 +6,11 @@
 # Dockerfile
 
 FROM openjdk:11
+RUN mkdir -p /usr/src/myapp/
 COPY target/credit-score-app.jar /usr/src/myapp/
 WORKDIR /usr/src/myapp
-RUN java -jar credit-score-app.jar
-========== code end  ==========
+ENTRYPOINT ["java" "jar" "credit-score-app.jar"]
+========== code end  =========
 
 
 3. Change the exact name of your application JAR file in the Dockerfile and the exact location from which it can be taken.
